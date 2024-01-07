@@ -115,23 +115,73 @@
             const operators = ['+', '-', '*', '/'];
             switch(elValue){
                 case 'pow':
+                       
+                    if (isNaN(currValue)) {
+                        currValue = 'Ошибка';
+                    }
+                    else{
+                         currValue = Math.pow(currValue,2)
+                    }
+                    
                     break;
                 case '%':
-                   break;
+                   
+                    if (isNaN(eval(currValue) / 100)) {
+                        currValue = 'Ошибка';
+                    }
+                    else{
+                         currValue = eval(currValue) / 100;
+                    }
+                    break;
                 case'strlk':
+                    currValue = currValue.slice(0, -1);
                     break;
                 case 'C':
+                    currValue = '';
                     break;
                 case'sqr':
-                   break;
+                    if (isNaN(currValue)) {
+                        currValue = 'Ошибка';
+                    }
+                    else{
+                         currValue = Math.sqrt(currValue);
+                    }
+                   
+                    break;
                 case '1/x':
+                    if (isNaN(currValue)) {
+                        currValue = 'Ошибка';
+                    }
+                    else{
+                        currValue = 1/currValue;
+                    }
                     break;
                 case '+/-':
+                    if (isNaN(currValue)) {
+                        currValue = 'Ошибка';
+                    }
+                    else{
+                        currValue = currValue*(-1);
+                    }
                     break;
                 case 'CE':
+                    let lastOperatorIndex = -1;
+                    for (let i = currValue.length - 1; i >= 0; i--) {
+                        if (operators.includes(currValue[i])) {
+                            lastOperatorIndex = i;
+                            break;
+                        }
+                    }
+                    currValue = currValue.substring(0, lastOperatorIndex + 1);
                     break;
                 case'=':
-                   break;
+                    try {
+                        currValue = eval(currValue);
+                    } 
+                    catch (err) {
+                        currValue = 'Ошибка';
+                    }
+                    break;
                     
                     
                 default:
