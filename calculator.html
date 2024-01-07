@@ -17,14 +17,44 @@
 </head>
 <body>
     <div id="root">
-        <div>
-            <input id = 'input' type="text" readonly value="0">
-            <div class="btnsBoard" id="btns">
-            </div>
+        <div class="calculator">
+            <input id='input' type="text" readonly value="0">
+            <div class="btnsBoard" id="btns"></div>
         </div>
     </div>
 <script>
-    
+    const root = document.getElementById('root');
+    const btns = document.getElementById('btns');
+    const input = document.getElementById('input');
+    const arr = [
+            '%', 'CE', 'C', { cls: 'strlk' },
+            '1/x', { cls: 'pow' }, { cls: 'sqr' }, '/',
+            '7', '8', '9', '*',
+            '4', '5', '6', '-',
+            '1', '2', '3', '+',
+            '+/-', '0', '.', '='
+        ];
+    const createElement = (text, cls) => {
+            const div = document.createElement('div');
+            if (typeof text == 'object') {
+                div.classList.add('img');
+                div.classList.add(cls);
+                div.dataset.value = cls;
+            } else {
+                div.innerText = text;
+                div.dataset.value = text;
+            }
+            div.classList.add('item');
+            btns.append(div);
+        };
+
+        const createBtnBrd = (arr) => {
+            arr.forEach((elem) => {
+                createElement(elem, elem.cls);
+            });
+        };
+
+        createBtnBrd(arr);
 </script>
 </body>
 </html>
