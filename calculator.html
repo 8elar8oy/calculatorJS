@@ -80,6 +80,7 @@
     const btns = document.getElementById('btns');
     const input = document.getElementById('input');
     let currValue = '';
+    let operatorClicked = false;
     const arr = [
             '%', 'CE', 'C', { cls: 'strlk' },
             '1/x', { cls: 'pow' }, { cls: 'sqr' }, '/',
@@ -122,7 +123,7 @@
                     else{
                          currValue = Math.pow(currValue,2)
                     }
-                    
+                    operatorClicked=false;
                     break;
                 case '%':
                    
@@ -132,12 +133,15 @@
                     else{
                          currValue = eval(currValue) / 100;
                     }
+                    operatorClicked=false;
                     break;
                 case'strlk':
                     currValue = currValue.slice(0, -1);
+                    operatorClicked=false;
                     break;
                 case 'C':
                     currValue = '';
+                    operatorClicked=false;
                     break;
                 case'sqr':
                     if (isNaN(currValue)) {
@@ -146,7 +150,7 @@
                     else{
                          currValue = Math.sqrt(currValue);
                     }
-                   
+                    operatorClicked=false;
                     break;
                 case '1/x':
                     if (isNaN(currValue)) {
@@ -155,6 +159,7 @@
                     else{
                         currValue = 1/currValue;
                     }
+                    operatorClicked=false;
                     break;
                 case '+/-':
                     if (isNaN(currValue)) {
@@ -163,6 +168,7 @@
                     else{
                         currValue = currValue*(-1);
                     }
+                    operatorClicked=false;
                     break;
                 case 'CE':
                     let lastOperatorIndex = -1;
@@ -173,6 +179,7 @@
                         }
                     }
                     currValue = currValue.substring(0, lastOperatorIndex + 1);
+                    operatorClicked=false;
                     break;
                 case'=':
                     try {
@@ -181,11 +188,24 @@
                     catch (err) {
                         currValue = 'Ошибка';
                     }
+                    operatorClicked=false;
                     break;
                     
                     
                 default:
-                    currValue += elValue  !== undefined ? elValue : '';; 
+                if(operators.includes(elValue)){
+                        if(!operatorClicked){
+                            currValue += elValue;
+                            operatorClicked = true;
+                        }
+                        else{
+                            currValue = currValue
+                        }
+                }
+                else{
+                    operatorClicked=false
+                    currValue += elValue  !== undefined ? elValue : '';;
+                }
             }
             if(currValue===''){
                 input.value = '0'  
