@@ -79,6 +79,7 @@
     const root = document.getElementById('root');
     const btns = document.getElementById('btns');
     const input = document.getElementById('input');
+    let currValue = '';
     const arr = [
             '%', 'CE', 'C', { cls: 'strlk' },
             '1/x', { cls: 'pow' }, { cls: 'sqr' }, '/',
@@ -107,6 +108,43 @@
             });
         };
         createBtnBrd(arr);
+        root.addEventListener('click', (event) => {
+            input.value = ''
+            const elem = event.target;
+            const elValue = elem.dataset.value;
+            const operators = ['+', '-', '*', '/'];
+            switch(elValue){
+                case 'pow':
+                    break;
+                case '%':
+                   break;
+                case'strlk':
+                    break;
+                case 'C':
+                    break;
+                case'sqr':
+                   break;
+                case '1/x':
+                    break;
+                case '+/-':
+                    break;
+                case 'CE':
+                    break;
+                case'=':
+                   break;
+                    
+                    
+                default:
+                    currValue += elValue  !== undefined ? elValue : '';; 
+            }
+            if(currValue===''){
+                input.value = '0'  
+            }
+            else{
+                 input.value = currValue;
+            }
+           
+        });
 </script>
 </body>
 </html>
